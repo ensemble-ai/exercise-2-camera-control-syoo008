@@ -45,3 +45,6 @@ func _process(delta: float) -> void:
 
 func draw_logic() -> void:
 	pass
+
+func reset_cam() -> void:
+	position = target.position
