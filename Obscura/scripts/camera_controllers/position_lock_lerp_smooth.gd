@@ -25,7 +25,7 @@ func _process(delta: float) -> void:
 	var distanceZ = abs(tpos.z - cpos.z)
 	
 	#If the vessel is moving, lerp with follow_speed
-	if !target.velocity.is_zero_approx():
+	if not(target.velocity.is_zero_approx()):
 		global_position = global_position.lerp(target.global_position, follow_speed/100)
 		#Re-utilize push-box logic for leash logic, can't get outside the box/leash
 		if distanceX > leash_distance || distanceZ > leash_distance:

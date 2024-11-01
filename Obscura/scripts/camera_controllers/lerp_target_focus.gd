@@ -22,7 +22,7 @@ func _process(delta: float) -> void:
 	var cpos = global_position
 	
 	#If the vessel is moving, check direction of velocity
-	if !target.velocity.is_zero_approx():
+	if not(target.velocity.is_zero_approx()):
 		#Based off velocity direction, lerp to point further in that direction ahead of vessel
 		if target.velocity.x > 0:
 			global_position.x = lerp(global_position.x, target.global_position.x + leash_distance, lead_speed/100)
