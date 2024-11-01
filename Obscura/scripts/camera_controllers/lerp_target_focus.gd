@@ -5,7 +5,7 @@ extends CameraControllerBase
 @export var lead_speed:float = 25
 @export var catchup_speed:float = 40
 @export var catchup_delay_duration:float = 0.5
-@export var leash_distance:float = 10
+@export var leash_distance:float = 7.5
 
 func _ready() -> void:
 	super()
@@ -21,8 +21,9 @@ func _process(delta: float) -> void:
 	var tpos = target.global_position
 	var cpos = global_position
 	
-	#If the vessel is moving, lerp with follow_speed
+	#If the vessel is moving, check direction of velocity
 	if !target.velocity.is_zero_approx():
+		#Based off velocity direction, lerp to point further in that direction ahead of vessel
 		if target.velocity.x > 0:
 			global_position.x = lerp(global_position.x, target.global_position.x + leash_distance, lead_speed/100)
 		if target.velocity.x < 0:
@@ -31,7 +32,8 @@ func _process(delta: float) -> void:
 			global_position.z = lerp(global_position.z, target.global_position.z - leash_distance, lead_speed/100)
 		if target.velocity.z > 0:
 			global_position.z = lerp(global_position.z, target.global_position.z + leash_distance, lead_speed/100)
-	#if the vessel is not moving, lerp with catchup_speed
+	#if the vessel is not moving, and the camera is not ontop of the vessel, 
+	#lerp with catchup_speed after waiting the catchup_delay_duration
 	elif target.velocity.is_zero_approx():
 		if tpos != cpos:
 			await get_tree().create_timer(catchup_delay_duration).timeout

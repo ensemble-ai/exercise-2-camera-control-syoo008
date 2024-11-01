@@ -124,7 +124,7 @@ script = ExtResource("8_q5jjf")
 lead_speed = 25.0
 catchup_speed = 40.0
 catchup_delay_duration = 0.5
-leash_distance = 10.0
+leash_distance = 7.5
 target = NodePath("../Vessel")
 
 [node name="debug" type="Label" parent="LerpTargetFocusCamera"]
